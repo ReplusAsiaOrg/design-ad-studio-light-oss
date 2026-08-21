@@ -1,0 +1,602 @@
+<title>Ad Studio Light マニュアル</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --paper: #f7f8fa;
+    --surface: #ffffff;
+    --ink: #1d2733;
+    --ink-soft: #55606e;
+    --line: #e2e6ec;
+    --accent: #2456d6;
+    --accent-ink: #1c3e9e;
+    --accent-soft: #e8eefc;
+    --badge-demo-bg: #fdf2d0;
+    --badge-demo-ink: #8a6a12;
+    --win: #0f8a5f;
+    --win-soft: #e2f4ec;
+    --shadow: 0 1px 2px rgba(24, 36, 56, .05), 0 8px 28px rgba(24, 36, 56, .07);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #11161d;
+      --surface: #1a212b;
+      --ink: #e6ebf2;
+      --ink-soft: #99a4b2;
+      --line: #2a3441;
+      --accent: #7da2f4;
+      --accent-ink: #a8c1f8;
+      --accent-soft: #223252;
+      --badge-demo-bg: #3d3416;
+      --badge-demo-ink: #e8c765;
+      --win: #4cc39a;
+      --win-soft: #17352b;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 28px rgba(0, 0, 0, .35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #11161d;
+    --surface: #1a212b;
+    --ink: #e6ebf2;
+    --ink-soft: #99a4b2;
+    --line: #2a3441;
+    --accent: #7da2f4;
+    --accent-ink: #a8c1f8;
+    --accent-soft: #223252;
+    --badge-demo-bg: #3d3416;
+    --badge-demo-ink: #e8c765;
+    --win: #4cc39a;
+    --win-soft: #17352b;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 28px rgba(0, 0, 0, .35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    font-size: 15.5px;
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px 96px; }
+
+  header.site {
+    padding: 64px 0 8px;
+  }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent-ink);
+  }
+  .kicker::before {
+    content: ""; display: inline-block; width: 22px; height: 2px;
+    background: var(--accent); border-radius: 1px;
+  }
+  h1 {
+    font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+    font-weight: 900; font-size: clamp(30px, 5.4vw, 44px);
+    line-height: 1.25; letter-spacing: .01em;
+    margin: 10px 0 14px; text-wrap: balance;
+  }
+  .lede { color: var(--ink-soft); max-width: 40em; margin: 0 0 22px; }
+
+  .demo-note {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 10px; padding: 14px 18px; margin: 0 0 40px;
+    font-size: 14px; color: var(--ink-soft);
+  }
+  .demo-note .pill {
+    flex: none; margin-top: 3px;
+    font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 500;
+    letter-spacing: .1em; padding: 2px 9px; border-radius: 99px;
+    background: var(--badge-demo-bg); color: var(--badge-demo-ink);
+  }
+
+  /* starter banner */
+  .starter {
+    background: var(--accent-soft);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px 22px 18px;
+    margin: 0 0 28px;
+  }
+  .starter h2 {
+    font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 700;
+    font-size: 18px; margin: 0 0 4px; color: var(--accent-ink);
+  }
+  .starter > p { margin: 0 0 10px; font-size: 13.5px; color: var(--ink-soft); }
+  .starter ol { margin: 0; padding: 0; counter-reset: s; list-style: none; }
+  .starter li {
+    counter-increment: s; position: relative;
+    padding: 5px 0 5px 34px; font-size: 14.5px;
+  }
+  .starter li::before {
+    content: counter(s);
+    position: absolute; left: 0; top: 8px;
+    width: 22px; height: 22px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--surface); color: var(--accent-ink);
+    border: 1px solid var(--line);
+    font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 500;
+  }
+  .starter a { color: var(--accent-ink); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+  .starter a:hover { text-decoration-thickness: 2px; }
+  .starter a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+  /* flow strip */
+  .flow {
+    display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px;
+    margin: 0 0 12px;
+  }
+  .flow .step {
+    flex: 1 1 200px;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 12px; padding: 16px 18px; box-shadow: var(--shadow);
+  }
+  .flow .step b {
+    display: block;
+    font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 700;
+    font-size: 16px; margin-bottom: 2px;
+  }
+  .flow .step .tag {
+    font-family: "IBM Plex Mono", monospace; font-size: 11px;
+    letter-spacing: .12em; color: var(--accent-ink);
+  }
+  .flow .step p { margin: 4px 0 0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+  .flow .arrow {
+    align-self: center; color: var(--ink-soft); flex: none;
+    font-size: 18px; padding: 0 2px;
+  }
+
+  /* TOC */
+  nav.toc {
+    margin: 28px 0 64px;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 8px 24px;
+  }
+  nav.toc a {
+    display: flex; gap: 10px; align-items: baseline;
+    padding: 7px 4px; border-bottom: 1px solid var(--line);
+    text-decoration: none; color: var(--ink); font-size: 14px; font-weight: 500;
+  }
+  nav.toc a:hover, nav.toc a:focus-visible { color: var(--accent-ink); }
+  nav.toc a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+  nav.toc .g {
+    font-family: "IBM Plex Mono", monospace; font-size: 11px;
+    letter-spacing: .08em; color: var(--accent-ink); flex: none; width: 3.6em;
+  }
+
+  /* sections */
+  section { margin: 0 0 72px; scroll-margin-top: 24px; }
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace; font-size: 12px;
+    letter-spacing: .16em; color: var(--accent-ink); margin: 0 0 6px;
+  }
+  h2 {
+    font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 700;
+    font-size: 25px; line-height: 1.4; margin: 0 0 6px; text-wrap: balance;
+  }
+  h2 .sub { font-size: 15px; font-weight: 500; color: var(--ink-soft); display: block; }
+  section > p { max-width: 42em; }
+  section > p.intro { color: var(--ink-soft); margin-top: 4px; }
+
+  figure {
+    margin: 22px 0;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 12px; padding: 10px; box-shadow: var(--shadow);
+  }
+  figure img { display: block; width: 100%; height: auto; border-radius: 6px; }
+  figcaption {
+    font-size: 12.5px; color: var(--ink-soft); padding: 8px 6px 2px;
+  }
+
+  ul.feat { margin: 14px 0 0; padding: 0 0 0 0; list-style: none; }
+  ul.feat li {
+    position: relative; padding: 5px 0 5px 22px; max-width: 46em;
+  }
+  ul.feat li::before {
+    content: ""; position: absolute; left: 4px; top: 15px;
+    width: 7px; height: 7px; border-radius: 2px;
+    background: var(--accent); opacity: .8;
+  }
+  ul.feat b { font-weight: 700; }
+
+  ol.loop { margin: 14px 0 0; padding-left: 0; counter-reset: n; list-style: none; }
+  ol.loop li {
+    counter-increment: n; position: relative;
+    padding: 6px 0 6px 40px; max-width: 46em;
+  }
+  ol.loop li::before {
+    content: counter(n);
+    position: absolute; left: 0; top: 8px;
+    width: 26px; height: 26px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-soft); color: var(--accent-ink);
+    font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 500;
+  }
+
+  h3.subhead {
+    font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 700;
+    font-size: 18px; margin: 40px 0 4px;
+  }
+  dl.spec { margin: 14px 0 0; }
+  dl.spec > div {
+    display: grid; grid-template-columns: 200px 1fr; gap: 4px 18px;
+    padding: 10px 2px; border-bottom: 1px solid var(--line);
+  }
+  dl.spec dt { font-weight: 700; font-size: 14px; margin: 0; }
+  dl.spec dd { margin: 0; font-size: 14px; color: var(--ink); max-width: 44em; }
+  @media (max-width: 640px) {
+    dl.spec > div { grid-template-columns: 1fr; }
+  }
+
+  code {
+    font-family: "IBM Plex Mono", monospace; font-size: .88em;
+    background: var(--accent-soft); color: var(--accent-ink);
+    padding: 1px 6px; border-radius: 5px;
+  }
+  .chip {
+    display: inline-block; font-size: 12px; font-weight: 700;
+    background: var(--win-soft); color: var(--win);
+    border-radius: 99px; padding: 1px 10px; vertical-align: 1px;
+  }
+  .note {
+    font-size: 13.5px; color: var(--ink-soft);
+    border-left: 3px solid var(--line); padding: 2px 0 2px 14px;
+    margin: 16px 0 0; max-width: 44em;
+  }
+
+  hr.sep { border: 0; border-top: 1px solid var(--line); margin: 0 0 64px; }
+
+  footer.site {
+    border-top: 1px solid var(--line); padding-top: 24px;
+    font-size: 13px; color: var(--ink-soft);
+  }
+  @media (max-width: 640px) {
+    header.site { padding-top: 40px; }
+    .flow .arrow { display: none; }
+  }
+</style>
+
+<div class="wrap">
+  <header class="site">
+    <span class="kicker">User Manual / 概要編</span>
+    <h1>Ad Studio Light<br>使い方マニュアル</h1>
+    <p class="lede">Meta広告（Facebook / Instagram）の「成果分析 → 勝ちパターン抽出 → 新クリエイティブ生成」を、自分のPC1台で完結できるツールです。各画面で何ができるかを一通り紹介します。</p>
+    <div class="demo-note">
+      <span class="pill">DEMO</span>
+      <span>掲載しているスクリーンショットはすべてデモモード（<code>npm run demo</code>）の画面です。架空の化粧品ブランド「LUMINA（サンプル）」のダミーデータで、実在のアカウント・数値ではありません。お手元でもAPIキー無しで同じ画面を再現できます。</span>
+    </div>
+
+    <div class="starter">
+      <h2>🚀 初めての方へ — 最初の10分</h2>
+      <p>初回だけ <a href="#accounts">アカウント管理</a> での設定が必要です。設定後は 分析 → 生成 → 学習 のループを回すだけになります。まず画面を触ってみたいだけなら <code>npm run demo</code>（設定不要）でOKです。</p>
+      <ol>
+        <li><a href="#accounts">アカウント管理</a> で「アカウントを追加」→ 分析したい広告アカウントを登録する</li>
+        <li>同じ画面で「同期」を押し、Metaから実績を取り込む</li>
+        <li>ホームでアカウントを選んで <a href="#report">広告レポート</a> を見る。<a href="#priority">優先順位</a> で★評価も確認</li>
+        <li><a href="#winning">勝ち分析再現</a> で勝ち広告を選ぶ → AIが分析 → 新案6案を生成</li>
+        <li><a href="#history">生成履歴</a> で「採用」→ 発行された入稿名でMetaに入稿すると、勝敗が自動で紐づく</li>
+      </ol>
+    </div>
+
+    <div class="flow" role="group" aria-label="全体の流れ">
+      <div class="step">
+        <span class="tag">STEP 1</span>
+        <b>📊 分析</b>
+        <p>広告レポート・優先順位・勝ちセグメントで、実績から「勝ち広告」と伸ばすべき配信先を特定</p>
+      </div>
+      <span class="arrow" aria-hidden="true">→</span>
+      <div class="step">
+        <span class="tag">STEP 2</span>
+        <b>🎨 生成</b>
+        <p>勝ち分析再現・バナー作成などで、勝ちクリエイティブを起点にAIで新案を量産</p>
+      </div>
+      <span class="arrow" aria-hidden="true">→</span>
+      <div class="step">
+        <span class="tag">STEP 3</span>
+        <b>📚 学習</b>
+        <p>生成履歴で入稿したバナーの勝敗を自動追跡し、次の生成に実績を反映</p>
+      </div>
+    </div>
+
+    <nav class="toc" aria-label="目次">
+      <a href="#home"><span class="g">基本</span>ホーム画面</a>
+      <a href="#report"><span class="g">分析</span>広告レポート</a>
+      <a href="#priority"><span class="g">分析</span>優先順位</a>
+      <a href="#segments"><span class="g">分析</span>勝ちセグメント</a>
+      <a href="#winning"><span class="g">生成</span>勝ち分析再現</a>
+      <a href="#create"><span class="g">生成</span>バナー作成</a>
+      <a href="#source"><span class="g">生成</span>素材から生成</a>
+      <a href="#variation"><span class="g">生成</span>バリエーション作成</a>
+      <a href="#prompt"><span class="g">生成</span>プロンプトジェネレーター</a>
+      <a href="#history"><span class="g">学習</span>生成履歴</a>
+      <a href="#accounts"><span class="g">設定</span>アカウント管理</a>
+    </nav>
+  </header>
+
+  <section id="home">
+    <p class="eyebrow">基本</p>
+    <h2>🏠 ホーム画面</h2>
+    <p class="intro">起動して最初に表示される画面です。上段が「広告分析」、下段が「広告CR生成」の入口になっています。</p>
+    <figure>
+      <img src="{{IMG:manual-00-home.png}}" alt="ホーム画面。広告分析のアカウントカードと、広告CR生成の機能カードが並ぶ" loading="lazy">
+      <figcaption>ホーム画面。アカウントカードを選ぶと広告レポートが開く</figcaption>
+    </figure>
+    <ul class="feat">
+      <li><b>広告分析</b> — 登録済みの広告アカウントがカードで並び、クリックするとそのアカウントの広告レポートが開きます</li>
+      <li><b>広告CR生成</b> — 各生成機能（勝ち分析再現・バナー作成など）へ直接ジャンプできます</li>
+      <li>右上の <b>⚙ アカウント管理</b> から、分析対象アカウントの登録・同期を行います</li>
+      <li>デモモード中はロゴ横に <b>DEMO</b> バッジが表示されます</li>
+    </ul>
+  </section>
+
+  <section id="report">
+    <p class="eyebrow">分析</p>
+    <h2>📊 広告レポート<span class="sub">クリエイティブ別の成果分析</span></h2>
+    <p class="intro">アカウントの広告実績を、期間を切り替えながらクリエイティブ単位で深掘りする画面です。</p>
+    <figure>
+      <img src="{{IMG:manual-01-report-top.png}}" alt="広告レポート上部。期間切替、絞り込み、異常検知、勝ち筋サマリー、AIに質問" loading="lazy">
+      <figcaption>レポート上部 — 期間切替・絞り込み・異常検知・この期間の勝ち筋・AIに質問</figcaption>
+    </figure>
+    <ul class="feat">
+      <li><b>期間切替</b> — 今日／昨日／過去7日／過去30日／今月／先月／全期間／カスタム期間</li>
+      <li><b>絞り込み</b> — キャンペーン・広告セット単位で表示対象を絞れます（複数ローンチの並行時に便利）</li>
+      <li><b>異常検知アラート</b> — 消化急増・配信停止疑い・CPA急騰などを直近7日の中央値と比較して自動検知</li>
+      <li><b>🏆 この期間の勝ち筋</b> — 期間内のCPA上位クリエイティブと、媒体・静止画/動画の勝率をサマリー表示</li>
+      <li><b>💬 AIに質問</b> — 表示中のレポート全体について自然文で質問できます（例:「CPAが悪化している要因は？」）</li>
+      <li><b>🤖 AI分析・改善案</b> — ボタンひとつで、前期比を踏まえた状況説明と具体的な改善アクションを生成</li>
+    </ul>
+    <figure>
+      <img src="{{IMG:manual-01b-report-charts.png}}" alt="KPIカードと日次推移グラフ、媒体別・配置別の内訳ドーナツグラフ" loading="lazy">
+      <figcaption>KPIカード（前期比つき）と日次推移、媒体・配置・性別・年齢の内訳グラフ</figcaption>
+    </figure>
+    <ul class="feat">
+      <li><b>KPIカード</b> — 広告費・表示回数・CPM／CTR・クリック・CPC／CVR・CV・CPA を前期比つきで表示し、日次推移をグラフ化</li>
+      <li><b>内訳グラフ</b> — 媒体別・配置別・性別・年齢別の内訳を、広告費／CV／CPA など8指標で切替表示</li>
+      <li><b>キャンペーン → 広告セット</b> — 階層をクリックで展開しながら数値を確認できるテーブル</li>
+    </ul>
+    <figure>
+      <img src="{{IMG:manual-01c-report-gallery.png}}" alt="クリエイティブギャラリー。サムネイルと主要指標のカードに勝ち・負けバッジ" loading="lazy">
+      <figcaption>クリエイティブギャラリー — 勝ち／負けバッジと主要指標をカードで一覧</figcaption>
+    </figure>
+    <ul class="feat">
+      <li>各広告をサムネイル＋主要指標のカードで一覧。<span class="chip">勝ち</span>／負けバッジと配信状況を表示</li>
+      <li>勝ち負けの判定は「同一CV種別の中央値よりCPAが安いか」。期間を変えると勝ち筋も変わります</li>
+      <li>並べ替え（CPA安い順・CV多い順など）、勝ち/負けフィルタ、ギャラリー⇄テーブル表示の切替に対応</li>
+      <li><b>PDF出力</b>ボタンでレポートをそのまま共有用に書き出せます</li>
+    </ul>
+  </section>
+
+  <section id="priority">
+    <p class="eyebrow">分析</p>
+    <h2>📊 優先順位<span class="sub">伸ばす広告・止める広告を一覧化</span></h2>
+    <p class="intro">同じクリエイティブを複数キャンペーンに入稿していても、広告名から名寄せ（統合名）して合算評価します。「どのクリエイティブに予算を寄せ、どれを止めるか」の判断に使う画面です。</p>
+    <figure>
+      <img src="{{IMG:manual-02-priority.png}}" alt="優先順位テーブル。統合名ごとに総合評価・CPAランク・消化ランクを表示" loading="lazy">
+      <figcaption>統合名ごとの総合評価（★★★優秀〜損切り）とCPA・消化ランク</figcaption>
+    </figure>
+    <ul class="feat">
+      <li><b>CPAランク A〜E</b> — 設定したCPA上限（評価設定で変更可）に対する良し悪し</li>
+      <li><b>消化ランク</b> — 消化金額の規模（十分に検証できた消化かどうか）</li>
+      <li><b>総合評価</b> — ★★★優秀 → ★★良好 → ★継続 → 要改善 → 損切り の5段階</li>
+      <li>評価別フィルタ・統合名検索・<b>CSV出力</b>に対応</li>
+    </ul>
+    <p class="note">期間指定での評価には PostgreSQL が必要です（全期間評価はDB無しでも動きます）。</p>
+  </section>
+
+  <section id="segments">
+    <p class="eyebrow">分析</p>
+    <h2>📊 勝ちセグメント<span class="sub">誰に・どこに配信すると勝てるか</span></h2>
+    <p class="intro">性別・年齢・配置ごとの実績を蓄積し、「絞り込んで入稿する価値のあるセグメント」を抽出する画面です。</p>
+    <figure>
+      <img src="{{IMG:manual-03-segments.png}}" alt="勝ちセグメント。入稿ターゲティング候補とスクリーニングのカード" loading="lazy">
+      <figcaption>入稿ターゲティング候補（年齢×性別・配置の掛け合わせ）とスクリーニング</figcaption>
+    </figure>
+    <ul class="feat">
+      <li><b>入稿ターゲティング候補</b> — 年齢×性別・配置の掛け合わせで★★★／★★のセグメントを提示。そのまま入稿時の絞り込みに使えます</li>
+      <li><b>スクリーニング（年齢単独／性別単独）</b> — 当たりを付けるための参考値。単独軸が★でも内側に負けセグメントを抱えることがあるため、最終判断は掛け合わせで</li>
+      <li><b>性別別・年齢別・年齢×性別別・配置別</b>の詳細テーブル</li>
+      <li><b>入稿用名称ジェネレーター</b> — <code>YYYYMMDD_接頭辞_素材名</code> 形式の入稿名を発行。この形式で入稿すると優先順位タブの名寄せに正しく合流します</li>
+    </ul>
+    <p class="note">この画面は PostgreSQL が必要です（デモモードは組み込みDBで動作します）。</p>
+  </section>
+
+  <section id="winning">
+    <p class="eyebrow">生成</p>
+    <h2>🎨 勝ち分析再現<span class="sub">勝ちクリエイティブを起点に新案を生成</span></h2>
+    <p class="intro">このツールの中核機能です。成果の出ているクリエイティブをアップすると、AIが「効いている要素」を3観点で分析し、勝ちフォーマットを保ったまま新しい案を作ります。</p>
+    <figure>
+      <img src="{{IMG:manual-04-winning.png}}" alt="勝ち分析再現の分析結果。勝ちパターン総括・3観点の分析と、コピー差替3案・テーマ替え3案" loading="lazy">
+      <figcaption>勝ちCRを分析した結果 — 「効いている要素」を3観点で言語化し、コピー差替3案＋テーマ替え3案を提示</figcaption>
+    </figure>
+    <ul class="feat">
+      <li><b>Step1 画像アップ → Step2 勝ち分析 → Step3 6案提示 → Step4 画像生成</b> の4ステップ</li>
+      <li>生成されるのは <b>コピー差替3案 ＋ テーマ替え3案（世界観ごと描き直し）</b> の計6案</li>
+      <li><b>📊 Metaの勝ちCRから選ぶ</b> — 同期済みの実データからCPA順に勝ちクリエイティブを選択可能（アップロード不要）</li>
+      <li><b>同プロジェクト改善</b>モード — 実物そのまま・1軸だけ振る／<b>別プロジェクト流用</b>モード — 勝ち構造だけを別ブランド・別案件へ移植</li>
+      <li>アスペクト比は画像から自動判定。生成エンジン（GPT Image 2 系）を選択できます</li>
+    </ul>
+  </section>
+
+  <section id="create">
+    <p class="eyebrow">生成</p>
+    <h2>🎨 バナー作成<span class="sub">キャッチコピーからAIバナーを生成</span></h2>
+    <p class="intro">テキストを入力するだけで、背景もテキストデザインもAIが組み立てる新規作成画面です。</p>
+    <figure>
+      <img src="{{IMG:manual-05-create.jpg}}" alt="バナー作成。左に設定フォーム、右に生成されたバナーと修正指示欄" loading="lazy">
+      <figcaption>テキストと設定から生成した例 — 生成後は「修正指示」で部分修正もできる</figcaption>
+    </figure>
+    <ul class="feat">
+      <li><b>テキスト</b> — メイン／サブを行単位で指定（複数追加可）</li>
+      <li><b>メインカラー・サイズ（1:1／16:9／9:16／4:3／3:4／px指定）・フォント・人物の有無</b>を指定。いずれも「AIおまかせ」可</li>
+      <li><b>参照URL / 参照画像</b> — LPや既存バナーのテイストを参考に。参照画像は「デザインの参考」か「そのまま使う（人物・商品を描き替えず配置）」を選択</li>
+      <li><b>ロゴ</b> — AI加工なしでそのまま合成</li>
+      <li><b>カスタム指示</b> — プロンプトジェネレーターの出力や自由記述の指示を追加</li>
+      <li><b>単発生成／一括生成</b>の切替に対応。生成結果はすべて「生成履歴」に残ります</li>
+    </ul>
+  </section>
+
+  <section id="source">
+    <p class="eyebrow">生成</p>
+    <h2>🎨 素材から生成<span class="sub">LPや手持ち素材からバナー化</span></h2>
+    <p class="intro">LPのURL、または素材ファイル（Markdown／画像）を渡すと、AIが訴求軸を抽出してからバナーを自動生成します。</p>
+    <figure>
+      <img src="{{IMG:manual-06-source.jpg}}" alt="素材から生成の結果。LP原稿から訴求軸別に6案のバナーが生成されている" loading="lazy">
+      <figcaption>LP原稿（サンプル）から訴求軸を抽出し、訴求別に6案を自動生成した例</figcaption>
+    </figure>
+    <ul class="feat">
+      <li>URL入力のほか、<code>.md</code> / <code>.txt</code> / 画像ファイルのドロップに対応</li>
+      <li>画像LP（UTAGE等）は、AIが画像内のテキストを読み取って訴求として使います</li>
+      <li>JS描画で本文が取れないLPは、ファーストビューのスクショを添付すると精度が上がります</li>
+    </ul>
+  </section>
+
+  <section id="variation">
+    <p class="eyebrow">生成</p>
+    <h2>🎨 バリエーション作成<span class="sub">1枚から6テイストに展開</span></h2>
+    <p class="intro">既存バナーを1枚アップすると、同じ内容のまま6種類の異なるデザインテイストを自動生成します。当たりのコピーを維持したままデザイン検証の弾を増やしたいときに使います。</p>
+    <figure>
+      <img src="{{IMG:manual-07-variation.jpg}}" alt="バリエーション作成の結果。1枚のベース画像から6種類のデザインテイストに展開" loading="lazy">
+      <figcaption>1枚のベース画像（勝ちCR）から、同じ内容のまま6テイストに展開した例</figcaption>
+    </figure>
+    <ul class="feat">
+      <li><b>素材画像</b> — 書籍・商品パッケージ・人物写真などを渡すと、描き替えずそのまま配置します</li>
+      <li><b>用途プリセット</b> — B2B/経営者（高級感）・化粧品/物販（親しみやすさ）・イベント/ローンチ（インパクト）を自動判定または手動選択</li>
+    </ul>
+  </section>
+
+  <section id="prompt">
+    <p class="eyebrow">生成</p>
+    <h2>🎨 プロンプトジェネレーター<span class="sub">参考デザインをプロンプト化</span></h2>
+    <p class="intro">参考にしたいバナー画像をアップすると、配色・構図・トーンなどのデザイン要素を画像生成用プロンプトに変換します。出力は「バナー作成」のカスタム指示にそのまま渡せます。</p>
+    <figure>
+      <img src="{{IMG:manual-08-prompt.png}}" alt="プロンプトジェネレーターの分析結果。フォーム入力ガイドとカスタム指示プロンプト" loading="lazy">
+      <figcaption>参考画像を分析した例 — フォーム入力ガイドと、配色・人物・レイアウトを言語化したカスタム指示を出力</figcaption>
+    </figure>
+  </section>
+
+  <section id="history">
+    <p class="eyebrow">学習</p>
+    <h2>📚 生成履歴<span class="sub">採用 → 自動追跡 → 次の生成に反映</span></h2>
+    <p class="intro">生成した全バナーの履歴です。ここが学習ループの起点になります。</p>
+    <figure>
+      <img src="{{IMG:manual-09-history.png}}" alt="生成履歴。生成バナーのグリッドに採用・不採用ボタン" loading="lazy">
+      <figcaption>生成バナーごとに「採用」「不採用」を記録</figcaption>
+    </figure>
+    <ol class="loop">
+      <li>入稿すると決めたバナーで「<b>採用</b>」を押し、素材名を付ける</li>
+      <li>発行された入稿名（例 <code>20260809_夏の限定訴求A</code>）を<b>そのままMetaの広告名にして入稿</b></li>
+      <li>同期後に「<b>成果を更新</b>」を押すと、勝敗が自動で紐づく</li>
+      <li>以降の「勝ち分析再現」は、蓄積された「勝った切り口・負けた切り口」を踏まえて生成するようになる</li>
+    </ol>
+  </section>
+
+  <section id="accounts">
+    <p class="eyebrow">設定</p>
+    <h2>⚙️ アカウント管理<span class="sub">分析対象の登録・同期・評価基準</span></h2>
+    <p class="intro">ヘッダー右上から開きます。分析対象にする広告アカウントをここで管理します。</p>
+    <figure>
+      <img src="{{IMG:manual-10-accounts.png}}" alt="アカウント管理。登録アカウントの一覧と同期・評価設定などの操作ボタン" loading="lazy">
+      <figcaption>アカウントごとに同期・過去取込・CR分類・評価設定・ブリーフを操作</figcaption>
+    </figure>
+    <ul class="feat">
+      <li><b>アカウントを追加</b> — トークンでアクセスできるアカウントの一覧から選んで登録</li>
+      <li><b>同期</b> — Metaから直近の実績を取り込み（「全て同期」で一括）</li>
+      <li><b>過去取込</b> — 過去実績の月次一括バックフィル（要PostgreSQL）</li>
+      <li><b>CR分類</b> — クリエイティブの特徴をAIで分類し、勝ちパターン抽出に利用（詳細は下記）</li>
+      <li><b>評価設定</b> — 報酬単価・CPA上限・ROAS基準など、★評価やランクの基準をアカウントごとに設定（詳細は下記）</li>
+      <li><b>ブリーフ</b> — ブランドのトーンや訴求の前提を登録し、生成時に反映</li>
+    </ul>
+
+    <h3 class="subhead" id="genes">CR分類の詳細</h3>
+    <p class="intro">クリエイティブ画像そのものをAI（vision）に見せて「見た目の特徴」を分類し、蓄積する処理です。数値の同期とは別ルートで動きます。</p>
+    <ol class="loop">
+      <li>同期済みの実績から、CV種別ごとにCPA基準で<b>勝ちCR・負けCR</b>を判定</li>
+      <li>そのクリエイティブ画像を取得し、AIが固定の分類語彙で特徴をタグ付け — <b>訴求フック</b>（口コミ・ビフォーアフター・限定オファー等）／<b>印象</b>／<b>被写体</b>／<b>配色</b>／<b>構図</b>／<b>文字量</b>／<b>CTAボタンの有無</b></li>
+      <li>結果をDBに蓄積。<b>分類済みのCRはスキップ</b>され、新規の勝ち/負けCR分だけ処理されます（差分実行）</li>
+    </ol>
+    <figure>
+      <img src="{{IMG:manual-10d-genes.png}}" alt="勝ち分析再現の勝ちCRピッカー。勝ちパターン要約と、CR分類済みの勝ちCRサムネイルがCPA付きで並ぶ" loading="lazy">
+      <figcaption>CR分類の成果 — 「Metaの勝ちCRから選ぶ」に分類済みの勝ちCRが並び、上部に勝ちパターン要約が表示される</figcaption>
+    </figure>
+    <ul class="feat">
+      <li><b>勝ち分析再現の「📊 Metaの勝ちCRから選ぶ」</b> — ここに並ぶのは「勝ち判定 かつ CR分類済み」のCRだけです。分類が走っていないと候補に出ません</li>
+      <li><b>勝ちパターン要約</b> — スクショ上部のように「勝ちは『フック（訴求）=ビフォーアフター』（勝率100%・3/3件）」といった特徴の集計が表示され、生成時のプロンプトにも参考情報として渡ります</li>
+      <li><b>普段このボタンを押す必要はありません</b> — 同期・過去取込のあとに自動実行されます（分類が失敗しても同期自体は成功扱い）。「CR分類」ボタンは手動再実行用で、押すと「新規◯件を分類（累計◯件）」と結果が表示されます</li>
+      <li>Metaが画像URLを返さない一部のCRは分類できず、ピッカーにも表示されません（既知の制約）</li>
+    </ul>
+
+    <h3 class="subhead" id="scoring">評価設定の詳細</h3>
+    <p class="intro">優先順位・勝ちセグメントの★評価やランクは、すべてこの画面の基準から計算されます。保存すると即反映されます（ランクは保存値ではなく表示のたびに計算されるため、過去分も含めて基準が切り替わります）。設定はアカウント（クライアント）ごとの上書きで、「既定値に戻す」でいつでもリセットできます。</p>
+    <figure>
+      <img src="{{IMG:manual-10b-scoring.png}}" alt="評価設定モーダル。報酬単価・ROAS判定基準・消化金額ランク境界・CV乖離補正などの入力欄" loading="lazy">
+      <figcaption>評価設定モーダル — 保存すると優先順位・勝ちセグメントの判定に即反映</figcaption>
+    </figure>
+    <dl class="spec">
+      <div>
+        <dt>報酬単価（1成果あたり）</dt>
+        <dd>1CVで得られる報酬・売上額。すべてのCPA基準の起点になります。</dd>
+      </div>
+      <div>
+        <dt>名寄せで除去する<br>ブランド接頭辞</dt>
+        <dd>広告名の先頭に付くブランド名等をカンマ区切りで登録。優先順位タブの統合名から除去して名寄せ精度を上げます。</dd>
+      </div>
+      <div>
+        <dt>ROAS判定基準（%）</dt>
+        <dd>★★★優秀／★★良好／★継続／要改善 の4閾値。各評価のCPA上限は <b>報酬単価×100÷ROAS%</b> で逆算されます（例: 報酬¥10,000・優秀200% → ★★★のCPA上限は¥5,000。計算結果は画面上に表示されます）。</dd>
+      </div>
+      <div>
+        <dt>消化金額ランク境界（円）</dt>
+        <dd>消化ランクA/B/Cの下限額。広告単体系（優先順位タブ）と内訳系（勝ちセグメントタブ）で別々に設定します。<b>C未満は「判定不可」</b>＝データ量不足として評価しません。</dd>
+      </div>
+      <div>
+        <dt>内訳系★判定の消化下限</dt>
+        <dd>勝ちセグメントで★★★／★★と判定するには、ROAS基準に<b>加えて</b>この消化額も必要（AND条件）。少額で偶然良い数字が出たセグメントを★にしないための下限です。</dd>
+      </div>
+      <div>
+        <dt>勝ち抽出フィルタ</dt>
+        <dd>「勝ち」として抽出する条件（勝ちROAS下限・勝ち最低CV数）。</dd>
+      </div>
+      <div>
+        <dt>CV乖離補正</dt>
+        <dd>Meta計測CVと実CV（カート実数など）のズレを補正する率。実CV = Meta CV ×（1−乖離率/100）。Metaが少なく出る場合はマイナス値。CV・CPA・CVR・ランク判定・AI分析のすべてに反映されます。0で補正なし。</dd>
+      </div>
+      <div>
+        <dt>AI分析 — 配置「除外候補」の判断基準</dt>
+        <dd>CV0の配置でも、消化がこの額に達するまでAIは「データ不足＝判断保留」とし除外を推奨しません。空欄の場合は★継続ラインのCPA基準額と同額になります。</dd>
+      </div>
+    </dl>
+
+    <h3 class="subhead" id="brief">ブリーフの詳細</h3>
+    <p class="intro">アカウントごとにブランドの前提知識を登録しておく画面です。「勝ち分析再現 → 別プロジェクト流用」で流用先にこのアカウントを選ぶと、ブランド説明・配色の初期値として自動投入されます（生成のたびに画面上で編集も可能）。毎回ブランド説明を書き直す手間がなくなり、誰が生成しても訴求とトーンがぶれにくくなります。</p>
+    <figure>
+      <img src="{{IMG:manual-10c-brief.png}}" alt="ブリーフ編集モーダル。ブランドブリーフの文章と、ブランド配色のスウォッチプレビュー" loading="lazy">
+      <figcaption>ブリーフ編集モーダル — ブランド説明と配色を登録（画面はデモのダミー記入例）</figcaption>
+    </figure>
+    <dl class="spec">
+      <div>
+        <dt>ブランドブリーフ</dt>
+        <dd>「①商材 → ②ターゲット → ③トーン → ④刺さる訴求（＋世界観・色）」の順で1〜3文にまとめるのがおすすめです。<br><br>記入例（デモのダミー）:<br>「LUMINA（架空の化粧品ブランド）の高保湿美容液。ターゲットは乾燥・ハリ不足が気になり始めた30〜50代女性。上品で清潔感のあるトーンに、口コミ・ビフォーアフター・実績数字の訴求が刺さる想定。SNS映えするローズベージュ×ゴールドの世界観。」<br><br>この例では 高保湿美容液（商材）／30〜50代女性（ターゲット）／上品で清潔感（トーン）／口コミ・ビフォーアフター・実績数字（刺さる訴求）／ローズベージュ×ゴールド（世界観）が1つずつ入っています。長い資料を貼るより、この密度で短く書いた方が生成結果は安定します。空にして保存すると未設定に戻ります。</dd>
+      </div>
+      <div>
+        <dt>ブランド配色（任意）</dt>
+        <dd>ブランドカラーを <code>#RRGGBB</code> のカンマ区切りで登録します（例: <code>#E8C4C4, #C9A96E, #FAF6F2, #5C4A4A</code>）。入力するとスウォッチでプレビュー表示され、# は省略しても自動補完、不正な値は警告が出ます。登録しておくと流用生成時にブランドの色味が初期値として引き継がれます。</dd>
+      </div>
+    </dl>
+  </section>
+
+  <hr class="sep">
+
+  <footer class="site">
+    <p>
+      「勝ちテンプレート」タブは light 版では未提供です（グレーアウト表示）。
+      勝ち判定の基準は「同一CV種別の中央値よりCPAが安い」で、★評価の閾値は評価設定から変更できます。
+      データはすべて自分のPC内（<code>data/</code> または PostgreSQL）に保存され、外部への通信は Meta / OpenAI / Google のAPI呼び出しのみです。
+    </p>
+    <p>セットアップ手順・環境変数・トラブルシューティングはリポジトリの README を参照してください。 — Ad Studio Light（Apache License 2.0）</p>
+  </footer>
+</div>

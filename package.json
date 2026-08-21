@@ -1,0 +1,43 @@
+{
+  "name": "design-ad-studio-light-oss",
+  "version": "1.0.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "scripts": {
+    "dev": "next dev -H 127.0.0.1",
+    "build": "next build",
+    "start": "next start -H 127.0.0.1",
+    "lint": "eslint",
+    "demo": "node scripts/demo.mjs",
+    "db:migrate": "node --env-file=.env.local scripts/db-migrate.mjs",
+    "verify:scoring": "node scripts/verify-scoring.mjs",
+    "prebuild": "node scripts/gen-build-info.mjs",
+    "verify:ad-policy": "node scripts/verify-ad-policy.mjs"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.5",
+    "@google/genai": "^1.41.0",
+    "@supabase/ssr": "^0.12.3",
+    "@supabase/supabase-js": "^2.110.8",
+    "cheerio": "^1.2.0",
+    "konva": "^10.2.0",
+    "next": "^16.2.10",
+    "openai": "^6.22.0",
+    "pg": "^8.22.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-konva": "^19.2.2",
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/pg": "^8.20.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "^16.2.10",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

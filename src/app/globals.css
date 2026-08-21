@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+}
+
+body {
+  background: #ffffff;
+  color: #37352f;
+}
+
+/* カラーピッカー */
+input[type="color"] {
+  -webkit-appearance: none;
+  border: none;
+  padding: 0;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+}
+
+/* スクロールバー */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a3a3a3;
+}
+
+/* ===== PDF出力（印刷）用 ===== */
+@media print {
+  /* アプリのヘッダー・タブ・操作系は印刷しない */
+  header, nav, .no-print { display: none !important; }
+  /* 余白と背景を印刷向けに */
+  body { background: #fff !important; }
+  main { padding: 0 !important; max-width: none !important; }
+  /* カードの影は印刷でノイズになるので消す */
+  .shadow-sm, .shadow-md { box-shadow: none !important; }
+  /* カードが途中で改ページ分割されないように */
+  .rounded-2xl, table, tr { break-inside: avoid; }
+  /* 画像を確実に出す */
+  img { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* ===== 文字色の底上げ（読みやすさ）=====
+   薄いグレー(300〜600)は #333、もともと濃いグレー(700〜900)は #000 に統一。
+   セマンティックな色(amber/blue/emerald/rose 等)や text-white は対象外。 */
+.text-gray-300, .text-gray-400, .text-gray-500, .text-gray-600 { color: #333333 !important; }
+.text-gray-700, .text-gray-800, .text-gray-900 { color: #000000 !important; }
